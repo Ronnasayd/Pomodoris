@@ -11,11 +11,41 @@
          margin-bottom: 1rem;
          margin-top: 1rem;
          }
-         body{
+         /* body{
          background: coral;
-         }
+         }*/
          .bg-cblue{
          background: cornflowerblue;
+         }
+         .card-header{
+         background-color: rgba(151,80,161,0.9);
+         color: white;
+         }
+         body{
+         background-color: rgba(255,142,37,0.5);
+         color: rgb(73,73,152);
+         }
+         .btn-primary{
+         background-color: rgb(0,139,139);
+         border-color:rgb(0,139,139);
+         }
+         .btn-danger{
+         background-color: rgb(255,0,0);
+         border-color:rgb(255,0,0);
+         }
+         .progress-bar{
+         background-color: rgb(32,178,170);
+         }
+         .btn-primary:hover{
+         background-color: rgb(0,206,209);
+         border-color: rgb(0,206,209);
+         }
+         .progress-bar:hover{
+         background-color: rgb(0,206,209);
+         }
+         .modal-header{
+           color:white;
+           background-color: rgba(151,80,161,0.4);
          }
       </style>
    </head>
@@ -27,7 +57,7 @@
                <div class="card titulo">
                   <div class="card-header text-center">
                      <i class="fa fa-clock-o fa-2x" aria-hidden="true"></i>
-                     <h2 class="card-title" style="display: inline;">Horário Local:</h2>
+                     <h2 class="card-title" style="display: inline;">Horário Local</h2>
                   </div>
                   <div class="card-body text-center">
                      <h3 class="card-text" id="time"></h3>
@@ -53,7 +83,9 @@
                         <tr class="row text-center">
                            <td class="col-md-3 col-4">
                               <i class="fa fa-graduation-cap" aria-hidden="true"></i>
-                              <p id="pomodoro" style="display: inline"></p>
+                              <strong>
+                                 <p id="pomodoro" style="display: inline"></p>
+                              </strong>
                            </td>
                            <td class="col-md-6 col-4">
                               <div class="progress">
@@ -73,7 +105,9 @@
                         <tr class="row text-center">
                            <td class="col-md-3 col-4">
                               <i class="fa fa-bed" aria-hidden="true"></i>
-                              <p id="descanso" style="display: inline"></p>
+                              <strong>
+                                 <p id="descanso" style="display: inline"></p>
+                              </strong>
                            </td>
                            <td class="col-md-6 col-4">
                               <div class="progress">
@@ -99,7 +133,7 @@
             <div class="col-6">
                <div class="card titulo">
                   <div class="card-header text-center">
-                     <h5>Lista de Pomodoris concluídos</h5>
+                     <h5><strong>Lista de Pomodoris concluídos</strong></h5>
                   </div>
                   <div class="card-body" id="pomodoro-concluido">
                   </div>
@@ -108,7 +142,7 @@
             <div class="col-6">
                <div class="card titulo">
                   <div class="card-header text-center">
-                     <h5>Lista de Descansos concluídos</h5>
+                     <h5><strong>Lista de Descansos concluídos</strong></h5>
                   </div>
                   <div class="card-body" id="descanso-concluido">
                   </div>
@@ -121,16 +155,16 @@
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Pomodoro</h5>
+                  <h5 class="modal-title" id="exampleModalLabel"><strong>Pomodoro</strong></h5>
                   <button type="button" class="close stop-audio" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
                <div class="modal-body">
-                  <p>Seu pomodoro acabou !!!! </p>
+                  <p class="alert alert-danger">Seu pomodoro acabou !!!! </p>
                </div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary stop-audio" data-dismiss="modal">fechar</button>
+                  <button type="button" class="btn btn-danger stop-audio form-control" data-dismiss="modal"><strong>fechar</strong></button>
                </div>
             </div>
          </div>
@@ -140,16 +174,16 @@
          <div class="modal-dialog" role="document">
             <div class="modal-content">
                <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Descanso</h5>
+                  <h5 class="modal-title" id="exampleModalLabel"><strong>Descanso</strong></h5>
                   <button type="button" class="close stop-audio" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                   </button>
                </div>
                <div class="modal-body">
-                  <p>Seu descanso acabou !!!! </p>
+                  <p class="alert alert-danger">Seu descanso acabou !!!! </p>
                </div>
                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary stop-audio" data-dismiss="modal">fechar</button>
+                  <button type="button" class="btn btn-danger stop-audio form-control" data-dismiss="modal"><strong>fechar</strong></button>
                </div>
             </div>
          </div>
@@ -161,144 +195,144 @@
       <script type="text/javascript">
          $(document).ready(function(){
          
-         	var maxDescanso = 30;
-         	var minDescanso = 5;
-         	var maxValuedescanso = minDescanso;
-         	var descansoplayStop = false;
-         	var descansoTotal;
-         	var descansoAux = 0;
-         	var descansoMin;
-         	var descansoSec;
-         	var descansoProgress;
-         	var qtdDescanso = 0;
+            var maxDescanso = 30;
+            var minDescanso = 5;
+            var maxValuedescanso = minDescanso;
+            var descansoplayStop = false;
+            var descansoTotal;
+            var descansoAux = 0;
+            var descansoMin;
+            var descansoSec;
+            var descansoProgress;
+            var qtdDescanso = 0;
          
-         	var maxValuepomodoro = 25;
-         	var pomodoroplayStop = false;
-         	var pomodoroTotal;;
-         	var pomodoroAux = 0;
-         	var pomodoroMin;
-         	var pomodoroSec;
-         	var pomodoroProgress;
-         	var qtdPomodoro = 0;
+            var maxValuepomodoro = 25;
+            var pomodoroplayStop = false;
+            var pomodoroTotal;;
+            var pomodoroAux = 0;
+            var pomodoroMin;
+            var pomodoroSec;
+            var pomodoroProgress;
+            var qtdPomodoro = 0;
          
-         	function formatTime(str){
-         		str = String(str);
-         		if(str.length < 2){
-         			return '0'+str;
-         		}
-         		else{
-         			return str;
-         		}
-         	};
+            function formatTime(str){
+               str = String(str);
+               if(str.length < 2){
+                  return '0'+str;
+               }
+               else{
+                  return str;
+               }
+            };
          
-         	function setHourTime(){
-         		var time = new Date();
-         		$('#time').text(formatTime(time.getHours())+':'+formatTime(time.getMinutes())+':'+formatTime(time.getSeconds()));
-         	};
-         	setInterval(setHourTime,1000);
+            function setHourTime(){
+               var time = new Date();
+               $('#time').text(formatTime(time.getHours())+':'+formatTime(time.getMinutes())+':'+formatTime(time.getSeconds()));
+            };
+            setInterval(setHourTime,1000);
          
-         	function stopAudio(){
-         		$('#audio')[0].pause();
-         		$('#audio')[0].currentTime=0;
-         	}; 
+            function stopAudio(){
+               $('#audio')[0].pause();
+               $('#audio')[0].currentTime=0;
+            }; 
          
-         	$('.stop-audio').on('click',stopAudio);
-         	
+            $('.stop-audio').on('click',stopAudio);
+            
          
-         	function tbutton(){
-         		$($('#pomodoro-play-stop').find('i')[0]).toggle();
-         		$($('#pomodoro-play-stop').find('i')[1]).toggle();
-         		pomodoroplayStop = !pomodoroplayStop;
-         	};
-         
-         
-         	$('#pomodoro-play-stop').on('click',tbutton);
-         
-         	$('#pomodoro-refresh').on('click',function(){
-         		pomodoroAux = 0;
-         	});
-         
-         	function setPomodoro(){
-         		pomodoroTotal = maxValuepomodoro*60;
-         
-         		if(pomodoroAux == pomodoroTotal){
-         			tbutton();
-         			pomodoroAux = 0;
-         			qtdPomodoro += 1;
-         			$('#audio')[0].play();
-         
-         			$('#pomodoroModal').modal();
-         
-         			$('#pomodoro-concluido').append("<div class='form-check form-check-inline'><input class='form-check-input' type='checkbox' checked><label class='form-check-label' for='inlineCheckbox1'>"+qtdPomodoro+"</label></div>");
-         
-         			if(qtdPomodoro%4 == 0 && qtdPomodoro != 0){
-         				maxValuedescanso = maxDescanso;
-         				
-         			}
-         			else{
-         				maxValuedescanso = minDescanso;
-         				
-         			}
-         			
-         
-         		}
-         		
-         		if(pomodoroplayStop){
-         			pomodoroAux += 1;
-         		}
-         		pomodoroMin = parseInt((pomodoroTotal - pomodoroAux)/60);
-         		pomodoroSec = 60*(maxValuepomodoro-pomodoroMin) - pomodoroAux;
-         
-         		pomodoroProgress = parseInt(pomodoroAux*100/pomodoroTotal);
-         
-         		$('#pomodoro').text(formatTime(pomodoroMin)+':'+formatTime(pomodoroSec));
-         		$('#pomodoro-progress').text(pomodoroProgress+'%').attr('style','width:'+pomodoroProgress+'%;').attr('ria-valuenow',String(pomodoroProgress));
-         		
-         	};
-         	setInterval(setPomodoro,1000);
+            function tbutton(){
+               $($('#pomodoro-play-stop').find('i')[0]).toggle();
+               $($('#pomodoro-play-stop').find('i')[1]).toggle();
+               pomodoroplayStop = !pomodoroplayStop;
+            };
          
          
-         	function tbuttond(){
-         		$($('#descanso-play-stop').find('i')[0]).toggle();
-         		$($('#descanso-play-stop').find('i')[1]).toggle();
-         		descansoplayStop = !descansoplayStop;
-         	};
+            $('#pomodoro-play-stop').on('click',tbutton);
+         
+            $('#pomodoro-refresh').on('click',function(){
+               pomodoroAux = 0;
+            });
+         
+            function setPomodoro(){
+               pomodoroTotal = maxValuepomodoro*60;
+         
+               if(pomodoroAux == pomodoroTotal){
+                  tbutton();
+                  pomodoroAux = 0;
+                  qtdPomodoro += 1;
+                  $('#audio')[0].play();
+         
+                  $('#pomodoroModal').modal();
+         
+                  $('#pomodoro-concluido').append("<div class='form-check form-check-inline'><input class='form-check-input' type='checkbox' checked><label class='form-check-label' for='inlineCheckbox1'>"+qtdPomodoro+"</label></div>");
+         
+                  if(qtdPomodoro%4 == 0 && qtdPomodoro != 0){
+                     maxValuedescanso = maxDescanso;
+                     
+                  }
+                  else{
+                     maxValuedescanso = minDescanso;
+                     
+                  }
+                  
+         
+               }
+               
+               if(pomodoroplayStop){
+                  pomodoroAux += 1;
+               }
+               pomodoroMin = parseInt((pomodoroTotal - pomodoroAux)/60);
+               pomodoroSec = 60*(maxValuepomodoro-pomodoroMin) - pomodoroAux;
+         
+               pomodoroProgress = parseInt(pomodoroAux*100/pomodoroTotal);
+         
+               $('#pomodoro').text(formatTime(pomodoroMin)+':'+formatTime(pomodoroSec));
+               $('#pomodoro-progress').text(pomodoroProgress+'%').attr('style','width:'+pomodoroProgress+'%;').attr('ria-valuenow',String(pomodoroProgress));
+               
+            };
+            setInterval(setPomodoro,1000);
          
          
-         	$('#descanso-play-stop').on('click',tbuttond);
+            function tbuttond(){
+               $($('#descanso-play-stop').find('i')[0]).toggle();
+               $($('#descanso-play-stop').find('i')[1]).toggle();
+               descansoplayStop = !descansoplayStop;
+            };
          
-         	$('#descanso-refresh').on('click',function(){
-         		descansoAux = 0;
-         	});
          
-         	function setDescanso(){
-         		descansoTotal = maxValuedescanso*60;
+            $('#descanso-play-stop').on('click',tbuttond);
          
-         		if(descansoAux == descansoTotal){
-         			tbuttond();
-         			descansoAux = 0;
-         			qtdDescanso += 1;
-         			$('#audio')[0].play();
-         			$('#descansoModal').modal();
-         			$('#descanso-concluido').append("<div class='form-check form-check-inline'><input class='form-check-input' type='checkbox' checked><label class='form-check-label' for='inlineCheckbox1'>"+qtdDescanso+"</label></div>");
-         			
+            $('#descanso-refresh').on('click',function(){
+               descansoAux = 0;
+            });
          
-         		}
-         		
-         		if(descansoplayStop){
-         			descansoAux += 1;
-         		}
-         		descansoMin = parseInt((descansoTotal - descansoAux)/60);
-         		descansoSec = 60*(maxValuedescanso-descansoMin) - descansoAux;
+            function setDescanso(){
+               descansoTotal = maxValuedescanso*60;
          
-         		descansoProgress = parseInt(descansoAux*100/descansoTotal);
+               if(descansoAux == descansoTotal){
+                  tbuttond();
+                  descansoAux = 0;
+                  qtdDescanso += 1;
+                  $('#audio')[0].play();
+                  $('#descansoModal').modal();
+                  $('#descanso-concluido').append("<div class='form-check form-check-inline'><input class='form-check-input' type='checkbox' checked><label class='form-check-label' for='inlineCheckbox1'>"+qtdDescanso+"</label></div>");
+                  
          
-         		$('#descanso').text(formatTime(descansoMin)+':'+formatTime(descansoSec));
-         		$('#descanso-progress').text(descansoProgress+'%').attr('style','width:'+descansoProgress+'%;').attr('ria-valuenow',String(descansoProgress));
-         		
-         	};
-         	setInterval(setDescanso,1000);
-         	
+               }
+               
+               if(descansoplayStop){
+                  descansoAux += 1;
+               }
+               descansoMin = parseInt((descansoTotal - descansoAux)/60);
+               descansoSec = 60*(maxValuedescanso-descansoMin) - descansoAux;
+         
+               descansoProgress = parseInt(descansoAux*100/descansoTotal);
+         
+               $('#descanso').text(formatTime(descansoMin)+':'+formatTime(descansoSec));
+               $('#descanso-progress').text(descansoProgress+'%').attr('style','width:'+descansoProgress+'%;').attr('ria-valuenow',String(descansoProgress));
+               
+            };
+            setInterval(setDescanso,1000);
+            
          
          });
          
